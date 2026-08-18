@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import type { Fuel, Transmission, Vehicle, VehicleStatus } from '@/lib/types';
+import { BRANDS, MODELS_BY_BRAND, ALL_MODELS, COLORS } from '@/lib/vehicleOptions';
 
 type Props = {
   mode: 'create' | 'edit';
@@ -36,6 +37,7 @@ export default function VehicleForm({ mode, vehicle }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const vehicleIdRef = useRef<string>(vehicle?.id ?? crypto.randomUUID());
+  const modelOptions = MODELS_BY_BRAND[brand.trim()] ?? ALL_MODELS;
 
   async function handleFiles(files: FileList | null) {
     if (!files || files.length === 0) return;
@@ -153,11 +155,37 @@ export default function VehicleForm({ mode, vehicle }: Props) {
       <div className="field-row">
         <div className="field">
           <label htmlFor="brand">Marca *</label>
-          <input id="brand" type="text" value={brand} onChange={(e) => setBrand(e.target.value)} required />
+          <input
+            id="brand"
+            type="text"
+            list="brand-options"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            required
+            autoComplete="off"
+          />
+          <datalist id="brand-options">
+            {BRANDS.map((b) => (
+              <option key={b} value={b} />
+            ))}
+          </datalist>
         </div>
         <div className="field">
           <label htmlFor="model">Modelo *</label>
-          <input id="model" type="text" value={model} onChange={(e) => setModel(e.target.value)} required />
+          <input
+            id="model"
+            type="text"
+            list="model-options"
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            required
+            autoComplete="off"
+          />
+          <datalist id="model-options">
+            {modelOptions.map((m) => (
+              <option key={m} value={m} />
+            ))}
+          </datalist>
         </div>
       </div>
 
@@ -177,7 +205,12 @@ export default function VehicleForm({ mode, vehicle }: Props) {
         </div>
         <div className="field">
           <label htmlFor="color">Color</label>
-          <input id="color" type="text" value={color} onChange={(e) => setColor(e.target.value)} />
+          <input id="color" type="text" list="color-options" value={color} onChange={(e) => setColor(e.target.value)} autoComplete="off" />
+          <datalist id="color-options">
+            {COLORS.map((c) => (
+              <option key={c} value={c} />
+            ))}
+          </datalist>
         </div>
       </div>
 

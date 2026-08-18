@@ -3,13 +3,9 @@ import type { Vehicle } from '@/lib/types';
 import SiteNav from '@/components/SiteNav';
 import VehicleCard from '@/components/VehicleCard';
 import { IconChat, IconCheck, IconCard, IconFolder, IconPin, IconClock, IconCamera, IconExternal } from '@/components/icons';
+import { WHATSAPP_DISPLAY, INSTAGRAM_LINK, MERCADOLIBRE_LINK, HOURS, whatsappLink } from '@/lib/site';
 
-const WHATSAPP_LINK =
-  'https://wa.me/5491100000000?text=Hola%2C%20quiero%20consultar%20por%20un%20auto';
-const WHATSAPP_DISPLAY = '+54 9 11 XXXX-XXXX (a confirmar)';
-const INSTAGRAM_LINK = 'https://www.instagram.com/autosapsanisidro';
-const MERCADOLIBRE_LINK = 'https://listado.mercadolibre.com.ar/autosap-san-isidro';
-const HOURS = 'Lun a Vie 9 a 18 hs (a confirmar)';
+const WHATSAPP_LINK = whatsappLink('Hola, quiero consultar por un auto');
 
 export const revalidate = 60; // refresh stock at most once a minute
 

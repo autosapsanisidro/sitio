@@ -1,7 +1,7 @@
 import { IconMenu } from './icons';
+import { whatsappLink } from '@/lib/site';
 
-const WHATSAPP_LINK =
-  'https://wa.me/5491100000000?text=Hola%2C%20quiero%20consultar%20por%20un%20auto';
+const WHATSAPP_LINK = whatsappLink('Hola, quiero consultar por un auto');
 
 export default function SiteNav() {
   return (
